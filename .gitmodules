@@ -1,0 +1,3 @@
+[submodule "scikit_build_example"]
+	path = scikit_build_example
+	url = https://github.com/pybind/scikit_build_example
