@@ -16,7 +16,5 @@ def test_sub():
 
 
 def main():
-    x={1,0,3,2,3,4,4};
-    y={2,3,4,1,6,4,6};
-    m.plot(x,y);
+    m.pokaz();
     return 0;

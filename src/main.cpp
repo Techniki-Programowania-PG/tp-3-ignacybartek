@@ -1,13 +1,27 @@
 #include <pybind11/pybind11.h>
 #include <matplot/matplot.h>
-
-
+#include <vector>
+#include <cmath>
 
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
 
 int add(int i, int j) {
     return i + j;
+}
+
+vector <double> DFT(vector<double> x)
+{
+    vector<double> y;
+    N = x.sizeof();
+    for (int k = 0; k < N; k++)
+    {
+        double temp=0;
+        for (int n = 0; n < N; n++)
+        {
+            temp+= x[n] * exp()
+        }
+    }
 }
 
 using namespace matplot;
