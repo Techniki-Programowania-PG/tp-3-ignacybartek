@@ -14,6 +14,13 @@ project(
 find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
 find_package(pybind11 CONFIG REQUIRED)
 
+#dodawanie biblioteki matplotplusplus
+add_executable(moj_program src/main.cpp)
+add_subdirectory(extern/matplotplusplus)
+
+target_link_libraries(moj_program PRIVATE matplot)
+
+
 # Add a library using FindPython's tooling (pybind11 also provides a helper like
 # this)
 python_add_library(_core MODULE src/main.cpp WITH_SOABI)
