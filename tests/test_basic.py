@@ -14,5 +14,9 @@ def test_add():
 def test_sub():
     assert m.subtract(1, 2) == -1
 
-def test_plot():
-    assert m.plot({1},{2})
+
+def main():
+    x={1,0,3,2,3,4,4};
+    y={2,3,4,1,6,4,6};
+    m.plot(x,y);
+    return 0;

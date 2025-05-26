@@ -1,5 +1,8 @@
 #include <pybind11/pybind11.h>
-#include <extern/matplotplusplus>
+#include <matplot/matplot.h>
+
+
+
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
 
@@ -7,11 +10,15 @@ int add(int i, int j) {
     return i + j;
 }
 
-void plot(vector <double> y, vector <double> x)
-{
-    plot(x,y)
-    
+using namespace matplot;
+
+void pokaz() {
+    plot({ 1, 2, 3, 4 });
+    show();
 }
+
+
+
 namespace py = pybind11;
 
 PYBIND11_MODULE(_core, m) {
@@ -32,6 +39,12 @@ PYBIND11_MODULE(_core, m) {
 
         
     )pbdoc");
+    m.def("pokaz", &pokaz,  R"pbdoc(
+        "Pokazuje wykres"
+
+        
+    )pbdoc");
+
 
     m.def("add", &add, R"pbdoc(
         Add two numbers

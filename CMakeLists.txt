@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.15...3.27)
 # Scikit-build-core sets these values for you, or you can just hard-code the
 # name and version.
 project(
-  ${SKBUILD_PROJECT_NAME}
+  moj_program
   VERSION ${SKBUILD_PROJECT_VERSION}
   LANGUAGES CXX)
 
@@ -15,16 +15,13 @@ find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
 find_package(pybind11 CONFIG REQUIRED)
 
 #dodawanie biblioteki matplotplusplus
-add_executable(moj_program src/main.cpp)
+
 add_subdirectory(extern/matplotplusplus)
-
-target_link_libraries(moj_program PRIVATE matplot)
-
 
 # Add a library using FindPython's tooling (pybind11 also provides a helper like
 # this)
 python_add_library(_core MODULE src/main.cpp WITH_SOABI)
-target_link_libraries(_core PRIVATE pybind11::headers)
+target_link_libraries(_core PRIVATE pybind11::headers matplot)
 
 # This is passing in the version as a define just as an example
 target_compile_definitions(_core PRIVATE VERSION_INFO=${PROJECT_VERSION})
