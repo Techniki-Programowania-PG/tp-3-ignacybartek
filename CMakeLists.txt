@@ -2,8 +2,13 @@
 # policies up to CMake 3.27
 cmake_minimum_required(VERSION 3.15...3.27)
 
+
+
 # Scikit-build-core sets these values for you, or you can just hard-code the
 # name and version.
+if(NOT DEFINED SKBUILD_PROJECT_VERSION)
+  set(SKBUILD_PROJECT_VERSION "0.0.1")
+endif()
 project(
   moj_program
   VERSION ${SKBUILD_PROJECT_VERSION}

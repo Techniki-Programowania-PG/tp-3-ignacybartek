@@ -16,5 +16,5 @@ def test_sub():
 
 
 def main():
-    m.pokaz();
-    return 0;
+   print(m.add(1,2))
+   return 0

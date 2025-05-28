@@ -127,39 +127,34 @@ PYBIND11_MODULE(_core, m) {
            subtract
     )pbdoc";
     m.def("DFT", &DFT, R"pbdoc(
-        ploting 2 numbers
-
+        Transformata dyskretna
         
     )pbdoc");
     m.def("IDFT", &IDFT, R"pbdoc(
-        ploting 2 numbers
+        odwrootnoœæ transformaty
 
         
     )pbdoc");
     m.def("sin_signal", &sin_signal, R"pbdoc(
-        ploting 2 numbers
-
+            sygna³ sinus
         
     )pbdoc");
     m.def("cos_signal", &cos_signal, R"pbdoc(
-        ploting 2 numbers
-
+            sygna³ cosinus
         
     )pbdoc");
 
     m.def("square_signal", &square_signal, R"pbdoc(
-        ploting 2 numbers
-
+        sygna³ prostok¹tny
         
     )pbdoc");
 
     m.def("sawtooth_signal", &sawtooth_signal, R"pbdoc(
-        ploting 2 numbers
-
+        sygna³ pi³ozêbny
         
     )pbdoc");
     m.def("pokaz", &pokaz,  R"pbdoc(
-        "Pokazuje wykres"
+        Pokazuje wykres
 
         
     )pbdoc");
