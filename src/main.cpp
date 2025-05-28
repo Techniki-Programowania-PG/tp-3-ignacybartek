@@ -1,7 +1,10 @@
+#define _USE_MATH_DEFINES
+
 #include <pybind11/pybind11.h>
 #include <matplot/matplot.h>
 #include <vector>
 #include <cmath>
+#include <complex>
 
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
@@ -10,18 +13,93 @@ int add(int i, int j) {
     return i + j;
 }
 
-vector <double> DFT(vector<double> x)
+
+
+std::vector<double> sin_signal(double frequency, int t_start, int t_end, int num_samples)
 {
-    vector<double> y;
-    N = x.sizeof();
+    std::vector<double> return_table;
+    double time = t_end - t_start;
+    double sample_distance = num_samples / time;
+    for (int i = 1; i < num_samples; ++i)
+    {
+        return_table.push_back(sin(2 * M_PI * frequency * (t_start + (i * sample_distance))));
+    }
+    return return_table;
+}
+
+std::vector<double> cos_signal(double frequency, int t_start, int t_end, int num_samples)
+{
+    std::vector<double> return_table;
+    double time = t_end - t_start;
+    double sample_distance = num_samples / time;
+    for (int i = 1; i < num_samples; ++i)
+    {
+        return_table.push_back(cos(2 * M_PI * frequency * (t_start + (i * sample_distance))));
+    }
+    return return_table;
+}
+
+std::vector<double> square_signal(double frequency, int t_start, int t_end, int num_samples)
+{
+    std::vector<double> return_table;
+    double time = t_end - t_start;
+    double sample_distance = num_samples / time;
+    for (int i = 1; i < num_samples; ++i)
+    {
+        if (fmod((t_start + i * sample_distance), (1 / frequency)) / (1 / frequency) > (1 / frequency) / 2) {
+            return_table.push_back(1);
+        }
+        else return_table.push_back(0);
+    }
+    return return_table;
+}
+
+std::vector<double> sawtooth_signal(double frequency, int t_start, int t_end, int num_samples)
+{
+    std::vector<double> return_table;
+    double time = t_end - t_start;
+    double sample_distance = num_samples / time;
+    for (int i = 1; i < num_samples; ++i)
+    {
+
+        return_table.push_back(1 / 4 * fmod((t_start + i * sample_distance), (1 / frequency)) / (1 / frequency));
+
+    }
+    return return_table;
+}
+
+std::vector<std::complex<double>> DFT(std::vector<std::complex<double>> x)
+{
+    std::vector<std::complex<double>> y;
+    int N = x.size();
     for (int k = 0; k < N; k++)
     {
-        double temp=0;
+        std::complex<double> i(0, 1);
+        std::complex<double> temp(0, 0);
         for (int n = 0; n < N; n++)
         {
-            temp+= x[n] * exp()
+            temp += x[n] * exp(-i.imag() * 2 * M_PI * (k / N) * n);
         }
+        y.push_back(temp);
     }
+    return y;
+}
+
+std::vector<std::complex<double>> IDFT(std::vector<std::complex<double>> x)
+{
+    std::vector<std::complex<double>> y;
+    double N = x.size();
+    for (int n = 0; n < N; n++)
+    {
+        std::complex<double> i(0, 1);
+        std::complex<double> temp(0, 0);
+        for (int k = 0; k < N; k++)
+        {
+            temp += x[k] * (1 / N) * exp(i.imag() * 2 * M_PI * (k / N) * n);
+        }
+        y.push_back(temp);
+    }
+    return y;
 }
 
 using namespace matplot;
@@ -48,7 +126,34 @@ PYBIND11_MODULE(_core, m) {
            add
            subtract
     )pbdoc";
-    m.def("plot", &plot, R"pbdoc(
+    m.def("DFT", &DFT, R"pbdoc(
+        ploting 2 numbers
+
+        
+    )pbdoc");
+    m.def("IDFT", &IDFT, R"pbdoc(
+        ploting 2 numbers
+
+        
+    )pbdoc");
+    m.def("sin_signal", &sin_signal, R"pbdoc(
+        ploting 2 numbers
+
+        
+    )pbdoc");
+    m.def("cos_signal", &cos_signal, R"pbdoc(
+        ploting 2 numbers
+
+        
+    )pbdoc");
+
+    m.def("square_signal", &square_signal, R"pbdoc(
+        ploting 2 numbers
+
+        
+    )pbdoc");
+
+    m.def("sawtooth_signal", &sawtooth_signal, R"pbdoc(
         ploting 2 numbers
 
         
