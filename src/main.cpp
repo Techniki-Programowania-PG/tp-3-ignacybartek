@@ -1,6 +1,8 @@
 #define _USE_MATH_DEFINES
 
 #include <pybind11/pybind11.h>
+#include <pybind11/complex.h>
+#include <pybind11/stl.h>
 #include <matplot/matplot.h>
 #include <vector>
 #include <cmath>
@@ -173,7 +175,7 @@ PYBIND11_MODULE(_core, m) {
     )pbdoc");
 
 #ifdef VERSION_INFO
-    m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
+    m.attr("__version__") = MACRO_STRINGIFY(MACRO_STRINGIFY);
 #else
     m.attr("__version__") = "dev";
 #endif
