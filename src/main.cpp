@@ -21,7 +21,7 @@ std::vector<double> sin_signal(double frequency, int t_start, int t_end, int num
 {
     std::vector<double> return_table;
     double time = t_end - t_start;
-    double sample_distance = num_samples / time;
+    double sample_distance = time / num_samples;
     for (int i = 1; i < num_samples; ++i)
     {
         return_table.push_back(sin(2 * M_PI * frequency * (t_start + (i * sample_distance))));
@@ -33,7 +33,7 @@ std::vector<double> cos_signal(double frequency, int t_start, int t_end, int num
 {
     std::vector<double> return_table;
     double time = t_end - t_start;
-    double sample_distance = num_samples / time;
+    double sample_distance = time / num_samples;
     for (int i = 1; i < num_samples; ++i)
     {
         return_table.push_back(cos(2 * M_PI * frequency * (t_start + (i * sample_distance))));
@@ -45,7 +45,7 @@ std::vector<double> square_signal(double frequency, int t_start, int t_end, int 
 {
     std::vector<double> return_table;
     double time = t_end - t_start;
-    double sample_distance = num_samples / time;
+    double sample_distance = time / num_samples;
     for (int i = 1; i < num_samples; ++i)
     {
         if (fmod((t_start + i * sample_distance), (1 / frequency)) / (1 / frequency) > (1 / frequency) / 2) {
@@ -60,7 +60,7 @@ std::vector<double> sawtooth_signal(double frequency, int t_start, int t_end, in
 {
     std::vector<double> return_table;
     double time = t_end - t_start;
-    double sample_distance = num_samples / time;
+    double sample_distance = time / num_samples;
     for (int i = 1; i < num_samples; ++i)
     {
 
