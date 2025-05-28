@@ -64,7 +64,7 @@ std::vector<double> sawtooth_signal(double frequency, int t_start, int t_end, in
     for (int i = 1; i < num_samples; ++i)
     {
 
-        return_table.push_back(1 / 4 * fmod((t_start + i * sample_distance), (1 / frequency)) / (1 / frequency));
+        return_table.push_back( 0.25 * fmod((t_start + i * sample_distance), (1 / frequency)) / (1 / frequency));
 
     }
     return return_table;
@@ -80,7 +80,7 @@ std::vector<std::complex<double>> DFT(std::vector<std::complex<double>> x)
         std::complex<double> temp(0, 0);
         for (int n = 0; n < N; n++)
         {
-            temp += x[n] * exp(-i.imag() * 2 * M_PI * (k / N) * n);
+            temp += x[n] * exp(-i.imag() * 2 * M_PI * (double(k) / N) * n);
         }
         y.push_back(temp);
     }
@@ -97,7 +97,7 @@ std::vector<std::complex<double>> IDFT(std::vector<std::complex<double>> x)
         std::complex<double> temp(0, 0);
         for (int k = 0; k < N; k++)
         {
-            temp += x[k] * (1 / N) * exp(i.imag() * 2 * M_PI * (k / N) * n);
+            temp += x[k] * (double(1) / N) * exp( i.imag() * 2 * M_PI * (double(k) / N) * n);
         }
         y.push_back(temp);
     }
