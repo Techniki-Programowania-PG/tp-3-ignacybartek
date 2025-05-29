@@ -213,7 +213,6 @@ PYBIND11_MODULE(_core, m) {
     )pbdoc");
     m.def("pokaz", &pokaz,  R"pbdoc(
         Pokazuje wykres
-
         
     )pbdoc");
 
@@ -221,13 +220,11 @@ PYBIND11_MODULE(_core, m) {
     m.def("add", &add, R"pbdoc(
         Add two numbers
 
-        Some other explanation about the add function.
     )pbdoc");
 
     m.def("subtract", [](int i, int j) { return i - j; }, R"pbdoc(
         Subtract two numbers
 
-        Some other explanation about the subtract function.
     )pbdoc");
 
     m.def("apply_filter", &apply_filter, R"pbdoc(
