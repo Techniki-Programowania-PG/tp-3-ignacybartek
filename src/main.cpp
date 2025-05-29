@@ -124,6 +124,42 @@ std::vector<double> apply_filter(const std::vector<double>& signal, const std::v
     return result;
 }
 
+std::vector<std::vector<double>> apply_filter_2D(
+    const std::vector<std::vector<double>>& input,
+    const std::vector<std::vector<double>>& kernel)
+{
+    int rows = input.size();
+    int cols = input[0].size();
+    int krows = kernel.size();
+    int kcols = kernel[0].size();
+
+    int k_center_y = krows / 2;
+    int k_center_x = kcols / 2;
+
+    std::vector<std::vector<double>> output(rows, std::vector<double>(cols, 0.0));
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            double acc = 0.0;
+
+            for (int m = 0; m < krows; ++m) {
+                for (int n = 0; n < kcols; ++n) {
+                    int y = i + m - k_center_y;
+                    int x = j + n - k_center_x;
+
+                    if (y >= 0 && y < rows && x >= 0 && x < cols) {
+                        acc += input[y][x] * kernel[m][n];
+                    }
+                }
+            }
+
+            output[i][j] = acc;
+        }
+    }
+
+    return output;
+}
+
 using namespace matplot;
 
 void pokaz() {
@@ -198,6 +234,12 @@ PYBIND11_MODULE(_core, m) {
             nakladanie filtra 1D
         
     )pbdoc");
+
+    m.def("apply_filter_2D", &apply_filter_2D, R"pbdoc(
+            nakladanie filtra 2D na macierz 2D
+        
+    )pbdoc");
+
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(MACRO_STRINGIFY);
 #else
