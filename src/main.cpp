@@ -11,10 +11,6 @@
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
 
-int add(int i, int j) {
-    return i + j;
-}
-
 
 
 std::vector<double> sin_signal(double frequency, int t_start, int t_end, int num_samples)
@@ -73,6 +69,7 @@ std::vector<double> sawtooth_signal(double frequency, int t_start, int t_end, in
 std::vector<std::complex<double>> DFT(std::vector<std::complex<double>> x)
 {
     std::vector<std::complex<double>> y;
+    std::complex<double> i = (0, 1);
     int N = x.size();
     for (int k = 0; k < N; k++)
     {
@@ -80,7 +77,7 @@ std::vector<std::complex<double>> DFT(std::vector<std::complex<double>> x)
         std::complex<double> temp(0, 0);
         for (int n = 0; n < N; n++)
         {
-            temp += x[n] * exp(-i.imag() * 2 * M_PI * (double(k) / N) * n);
+            temp += x[n] * exp(- i * 2.0 * M_PI * (double(k) / N) * double(n));
         }
         y.push_back(temp);
     }
@@ -97,7 +94,7 @@ std::vector<std::complex<double>> IDFT(std::vector<std::complex<double>> x)
         std::complex<double> temp(0, 0);
         for (int k = 0; k < N; k++)
         {
-            temp += x[k] * (double(1) / N) * exp( i.imag() * 2 * M_PI * (double(k) / N) * n);
+            temp += x[k] * (double(1) / N) * exp( i * 2.0 * M_PI * (double(k) / N) * double(n));
         }
         y.push_back(temp);
     }
@@ -162,11 +159,20 @@ std::vector<std::vector<double>> apply_filter_2D(
 
 using namespace matplot;
 
-void pokaz() {
-    plot({ 1, 2, 3, 4 });
+void plot_signal(const std::vector<double>& y) {
+    using namespace matplot;
+
+    // Tworzymy wektor x – osie czasu lub indeksów
+    std::vector<double> x(y.size());
+    std::iota(x.begin(), x.end(), 0);  // x = [0, 1, 2, ..., N-1]
+
+    plot(x, y);
+    title("Wykres sygnału");
+    xlabel("Próbki");
+    ylabel("Amplituda");
+    grid(on);
     show();
 }
-
 
 
 namespace py = pybind11;
@@ -211,21 +217,15 @@ PYBIND11_MODULE(_core, m) {
         sygna³ pi³ozêbny
         
     )pbdoc");
-    m.def("pokaz", &pokaz,  R"pbdoc(
+    m.def("pokaz", &plot_signal,  R"pbdoc(
         Pokazuje wykres
         
     )pbdoc");
 
 
-    m.def("add", &add, R"pbdoc(
-        Add two numbers
+   
 
-    )pbdoc");
 
-    m.def("subtract", [](int i, int j) { return i - j; }, R"pbdoc(
-        Subtract two numbers
-
-    )pbdoc");
 
     m.def("apply_filter", &apply_filter, R"pbdoc(
             nakladanie filtra 1D
