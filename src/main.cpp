@@ -217,7 +217,7 @@ PYBIND11_MODULE(_core, m) {
         sygna³ pi³ozêbny
         
     )pbdoc");
-    m.def("pokaz", &plot_signal,  R"pbdoc(
+    m.def("plot_signal", &plot_signal,  R"pbdoc(
         Pokazuje wykres
         
     )pbdoc");
