@@ -194,8 +194,10 @@ PYBIND11_MODULE(_core, m) {
         Some other explanation about the subtract function.
     )pbdoc");
 
-    m.def("apply_filter", &apply_filter, "Nakładanie filtru 1D");
-
+    m.def("apply_filter", &apply_filter, R"pbdoc(
+            nakladanie filtra 1D
+        
+    )pbdoc");
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(MACRO_STRINGIFY);
 #else
