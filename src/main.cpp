@@ -104,6 +104,26 @@ std::vector<std::complex<double>> IDFT(std::vector<std::complex<double>> x)
     return y;
 }
 
+std::vector<double> apply_filter(const std::vector<double>& signal, const std::vector<double>& kernel) {
+    int n = signal.size();
+    int k = kernel.size();
+    int pad = k / 2;
+
+    std::vector<double> result(n, 0.0);
+
+    for (int i = 0; i < n; ++i) {
+        double acc = 0.0;
+        for (int j = 0; j < k; ++j) {
+            int idx = i + j - pad;
+            if (idx >= 0 && idx < n)
+                acc += signal[idx] * kernel[j];
+        }
+        result[i] = acc;
+    }
+
+    return result;
+}
+
 using namespace matplot;
 
 void pokaz() {
@@ -133,26 +153,26 @@ PYBIND11_MODULE(_core, m) {
         
     )pbdoc");
     m.def("IDFT", &IDFT, R"pbdoc(
-        odwrootnoœæ transformaty
+        odwrootnoÅ“Ã¦ transformaty
 
         
     )pbdoc");
     m.def("sin_signal", &sin_signal, R"pbdoc(
-            sygna³ sinus
+            sygnaÂ³ sinus
         
     )pbdoc");
     m.def("cos_signal", &cos_signal, R"pbdoc(
-            sygna³ cosinus
+            sygnaÂ³ cosinus
         
     )pbdoc");
 
     m.def("square_signal", &square_signal, R"pbdoc(
-        sygna³ prostok¹tny
+        sygnaÂ³ prostokÂ¹tny
         
     )pbdoc");
 
     m.def("sawtooth_signal", &sawtooth_signal, R"pbdoc(
-        sygna³ pi³ozêbny
+        sygnaÂ³ piÂ³ozÃªbny
         
     )pbdoc");
     m.def("pokaz", &pokaz,  R"pbdoc(
@@ -173,6 +193,8 @@ PYBIND11_MODULE(_core, m) {
 
         Some other explanation about the subtract function.
     )pbdoc");
+
+    m.def("apply_filter", &apply_filter, "NakÅ‚adanie filtru 1D");
 
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(MACRO_STRINGIFY);
