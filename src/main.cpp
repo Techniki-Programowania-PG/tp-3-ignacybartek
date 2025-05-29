@@ -190,15 +190,17 @@ PYBIND11_MODULE(_core, m) {
            add
            subtract
     )pbdoc";
+    
     m.def("DFT", &DFT, R"pbdoc(
         Transformata dyskretna
         
     )pbdoc");
+    
     m.def("IDFT", &IDFT, R"pbdoc(
         odwrootnoœæ transformaty
-
-        
+    
     )pbdoc");
+    
     m.def("sin_signal", &sin_signal, R"pbdoc(
             sygna³ sinus
         
@@ -217,16 +219,12 @@ PYBIND11_MODULE(_core, m) {
         sygna³ pi³ozêbny
         
     )pbdoc");
+    
     m.def("plot_signal", &plot_signal,  R"pbdoc(
         Pokazuje wykres
         
     )pbdoc");
-
-
-   
-
-
-
+    
     m.def("apply_filter", &apply_filter, R"pbdoc(
             nakladanie filtra 1D
         
