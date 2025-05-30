@@ -7,7 +7,7 @@ from cmath import sin, pi
 # Parametry sygnału
 freq = 1
 t_start = 0
-t_end = 1
+t_end = 3
 samples = 100
 
 # 3. Sygnał sinusoidalny
