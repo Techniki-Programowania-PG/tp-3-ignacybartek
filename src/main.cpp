@@ -248,10 +248,10 @@ PYBIND11_MODULE(_core, m) {
         
     )pbdoc");
 
-    m.def("remove_low_f", &remove_low_f,
+    m.def("remove_low_f", &remove_low_f,R"pbdoc(
 "Usuwa niskie częstotliwości  z widma sygnału",
         
-pybind11::arg("signal"), pybind11::arg("num_to_remove"));
+pybind11::arg("signal"), pybind11::arg("num_to_remove"))pbdoc");
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(MACRO_STRINGIFY);
 #else
