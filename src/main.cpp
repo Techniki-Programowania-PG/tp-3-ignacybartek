@@ -157,8 +157,7 @@ std::vector<std::vector<double>> apply_filter_2D(
     return output;
 }
 
-std::vector<std::complex<double>> remove_low_f(
-const std::vector<std::complex<double>>& signal,
+std::vector<std::complex<double>> remove_low_f(const std::vector<std::complex<double>>& signal,
 int num_to_remove)
 {
 std::vector<std::complex<double>> spectrum = DFT(signal);
@@ -168,7 +167,6 @@ for (int i = 0; i < num_to_remove && i < N; ++i) {
     spectrum[i] = 0.0;
 }
 std::vector<std::complex<double>> filtered = IDFT(spectrum);
-
 return filtered;
 }
 
