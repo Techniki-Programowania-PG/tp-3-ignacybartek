@@ -173,11 +173,9 @@ using namespace matplot;
 
 void plot_signal(const std::vector<double>& y) {
     using namespace matplot;
-
-    // Tworzymy wektor x – osie czasu lub indeksów
     std::vector<double> x(y.size());
-    std::iota(x.begin(), x.end(), 0);  // x = [0, 1, 2, ..., N-1]
-
+    std::iota(x.begin(), x.end(), 0); 
+    
     plot(x, y);
     title("Wykres sygnału");
     xlabel("Próbki");
