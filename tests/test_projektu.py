@@ -66,3 +66,12 @@ kernel = [
 result = _core.apply_filter_2D(matrix, kernel)
 for row in result:
     print(row)
+
+#12
+filtered = _core.remove_low_f(cosinus, 4)
+
+print("Oryginalny sygnał:")
+print([round(s.real, 3) for s in cosinus])
+
+print("\nPo usunięciu niskich częstotliwości:")
+print([round(s.real, 3) for s in filtered])
