@@ -157,6 +157,21 @@ std::vector<std::vector<double>> apply_filter_2D(
     return output;
 }
 
+std::vector<std::complex<double>> remove_low_f(
+const std::vector<std::complex<double>>& signal,
+int num_to_remove)
+{
+std::vector<std::complex<double>> spectrum = DFT(signal);
+
+int N = spectrum.size();
+for (int i = 0; i < num_to_remove && i < N; ++i) {
+    spectrum[i] = 0.0;
+}
+std::vector<std::complex<double>> filtered = IDFT(spectrum);
+
+return filtered;
+}
+
 using namespace matplot;
 
 void plot_signal(const std::vector<double>& y) {
@@ -235,6 +250,10 @@ PYBIND11_MODULE(_core, m) {
         
     )pbdoc");
 
+    m.def("remove_low_frequencies_using_DFT", &remove_low_frequencies_using_DFT,
+"Usuwa niskie częstotliwości  z widma sygnału",
+        
+pybind11::arg("signal"), pybind11::arg("num_to_remove"));
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(MACRO_STRINGIFY);
 #else
