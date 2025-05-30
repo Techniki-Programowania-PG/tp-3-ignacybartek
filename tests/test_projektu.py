@@ -46,3 +46,23 @@ print("IDFT:", idft_result)
 
 # 9. Wykres IDFT
 _core.plot_signal([x.real for x in idft_result])
+
+# 10 filtr 1D
+filtered1Dsin=_core.apply_filter(sinus, [0.1, 2, 4])
+print("\n","1DFiltered sin: ",filtered1Dsin)
+_core.plot_signal(filtered1Dsin)
+
+# 11. filtr 2D
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+kernel = [
+    [0, -1, 0],
+    [-1, 5, -1],
+    [0, -1, 0]
+]
+result = _core.apply_filter_2D(matrix, kernel)
+for row in result:
+    print(row)
