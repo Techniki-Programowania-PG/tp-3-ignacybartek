@@ -248,7 +248,7 @@ PYBIND11_MODULE(_core, m) {
         
     )pbdoc");
 
-    m.def("remove_low_frequencies_using_DFT", &remove_low_frequencies_using_DFT,
+    m.def("remove_low_f", &remove_low_f,
 "Usuwa niskie częstotliwości  z widma sygnału",
         
 pybind11::arg("signal"), pybind11::arg("num_to_remove"));
