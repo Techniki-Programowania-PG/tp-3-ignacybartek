@@ -165,7 +165,7 @@ std::vector<std::complex<double>> remove_low_f(const std::vector<std::complex<do
     for (int i = 0; i < num_to_remove && i < N; ++i) {
         spectrum[i] = 0.0;
     }
-    std::vector<std::complex<double>>output=IDFT(spectrum)
+    std::vector<std::complex<double>>output=IDFT(spectrum);
     return output;
 }
 
