@@ -57,11 +57,11 @@ kernel = [[0.25, 0.5, 0.25]]
 filtered2D = _core.apply_filter_2D(sinus, kernel)  # wektor sinusa jako 1xN
 _core.plot_signal(filtered2D[0]) 
 
-#12
+#12 Usuwanie niskich częstotliwości z sygnału (IDFT)
 filtered = _core.remove_low_f(cosinus, 4)
 
 print("Oryginalny sygnał:")
-print([round(s.real, 3) for s in cosinus])
-
+_core.plot_signal([round(s.real, 3) for s in cosinus])
+time.sleep(1)
 print("\nPo usunięciu niskich częstotliwości:")
-print([round(s.real, 3) for s in filtered])
+_core.plot_signal([round(s.real, 3) for s in filtered])
